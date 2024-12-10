@@ -8,6 +8,26 @@
     <script src="./js/script.js" defer></script>
 </head>
 <body>
-    
+    <form id="quizSettings" autocomplete="off">
+        <label for="HMQ">How many questions do you want to answer?</label>
+        <br><br>
+        <input type="number" name="amount" min="3" max="10" required>
+        <br><br>
+
+        <select name="category" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="General Knowledge">General Knowledge</option>
+          <option value="history">History</option>
+          <option value="sports">Sports</option>
+        </select>
+        <br><br>
+      
+        <label><input type="radio" name="difficulty" value="easy" required>Easy</label>
+        <label><input type="radio" name="difficulty" value="medium">Medium</label>
+        <label><input type="radio" name="difficulty" value="hard">Hard</label>
+        <br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
