@@ -10,20 +10,21 @@
 <body>
     <form id="quizSettings" autocomplete="off">
         <label for="HMQ">How many questions do you want to answer?</label>
-        <input type="number" id="HMQ" min="3" max="10" required>
+        <br><br>
+        <input type="number" name="amount" min="3" max="10" required>
         <br><br>
 
         <select name="category" required>
           <option value="" disabled selected>Select a category</option>
-          <option value="science">Science</option>
+          <option value="General Knowledge">General Knowledge</option>
           <option value="history">History</option>
           <option value="sports">Sports</option>
         </select>
         <br><br>
       
-        <label><input type="radio" name="difficulty" value="Easy" required>Easy</label>
-        <label><input type="radio" name="difficulty" value="Medium">Medium</label>
-        <label><input type="radio" name="difficulty" value="Hard">Hard</label>
+        <label><input type="radio" name="difficulty" value="easy" required>Easy</label>
+        <label><input type="radio" name="difficulty" value="medium">Medium</label>
+        <label><input type="radio" name="difficulty" value="hard">Hard</label>
         <br><br>
         
         <button type="submit">Submit</button>
