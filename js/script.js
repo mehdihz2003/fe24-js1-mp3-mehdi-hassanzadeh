@@ -4,25 +4,18 @@ getSessionToken()
         sessionToken = tokenObject
     })
 
-let categoryIDs;
-getCategoryID()
-    .then(categoryObject => {
-        categoryIDs = categoryObject;
-    })
-
 const quizSettingsForm = document.querySelector('#quizSettings');
+const quizQuestionDiv = document.querySelector('#questionContainer');
+
 
 quizSettingsForm.addEventListener('submit', async event => {
     event.preventDefault();
 
     const amount = quizSettingsForm.querySelector('input[name="amount"]').value;
-    console.log(amount);
-
-    const category = quizSettingsForm.querySelector('select').value;
-    console.log(category);
-
+    const category = quizSettingsForm.querySelector('select[name="category"]').value;
     const difficulty = quizSettingsForm.querySelector('input[name="difficulty"]:checked').value;
-    console.log(difficulty);
+
+    const categoryIDs = await getCategoryID();
 
     const matchingObject = categoryIDs.find(item => item.name === category);
     let matchingID;
@@ -34,7 +27,8 @@ quizSettingsForm.addEventListener('submit', async event => {
 
     const triviaQuiz = await getTriviaQuiz(amount, matchingID, difficulty);
     console.log(triviaQuiz);
-    quizSettingsForm.remove();
+    quizSettingsForm.classList.add('hidden');
+    quizQuestionDiv.classList.remove('hidden');
 })
 
 async function getSessionToken() {
@@ -48,8 +42,6 @@ async function getSessionToken() {
         }
 
         const data = await response.json();
-
-        console.log("Session Token:", data.token);
 
         return data.token;
     }
@@ -70,12 +62,10 @@ async function getTriviaQuiz(amount, category, difficulty) {
 
         const data = await response.json();
 
-        //console.log(data);
-
         return data.results;
     }
     catch {
-        console.error("Error retrieving trivia quiz: ", error);
+        console.error("Error retrieving trivia quiz: ");
     }
 }
 
@@ -84,19 +74,16 @@ async function getCategoryID() {
 
     try {
         const response = await fetch(url);
-        
+
         if(!response.ok) {
             throw new Error (`Error! Status: ${response.status}`);
         }
 
         const data = await response.json();
 
-        //console.log(data);
-
         return data.trivia_categories;
     }
     catch {
         console.error("Error retrieving category ID: ", error);
     }
-    
 }
