@@ -8,7 +8,7 @@
     <script src="./js/script.js" defer></script>
 </head>
 <body>
-    <form id="quizSettings" autocomplete="off">
+    <form id="quizSettings" autocomplete="on">
         <label for="HMQ">How many questions do you want to answer?</label>
         <br><br>
         <input type="number" name="amount" min="3" max="10" required>
@@ -17,8 +17,12 @@
         <select name="category" required>
           <option value="" disabled selected>Select a category</option>
           <option value="General Knowledge">General Knowledge</option>
-          <option value="history">History</option>
-          <option value="sports">Sports</option>
+          <option value="Entertainment: Video Games">Video Games</option>
+          <option value="Mythology">Mythology</option>
+          <option value="Sports">Sports</option>
+          <option value="History">History</option>
+          <option value="Animals">Animals</option>
+          <option value="Entertainment: Japanese Anime & Manga">Japanese Anime & Manga</option>
         </select>
         <br><br>
       
@@ -29,5 +33,21 @@
         
         <button type="submit">Submit</button>
     </form>
+
+    <div id="questionContainer" class="hidden">
+        <h3>placeholder question</h3>
+
+        <label id="firstOption"><input type="radio" name="option" value="1" required><span>one</span></label>
+        <br><br>
+        <label id="secondOption"><input type="radio"  name="option" value="2"><span>two</span></label>
+        <br><br>
+        <label id="thirdOption"><input type="radio"  name="option" value="3"><span>three</span></label>
+        <br><br>
+        <label id="fourthOption"><input type="radio"  name="option" value="4"><span>four</span></label>
+        <br><br>
+
+        <button id="answer">Answer</button>
+        <button id="next" class="hidden">-Next-</button>
+    </div>
 </body>
 </html>
