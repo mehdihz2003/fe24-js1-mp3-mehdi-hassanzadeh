@@ -4,9 +4,10 @@ getSessionToken()
         sessionToken = tokenObject
     })
 
+    getCategoryID();
+
 const quizSettingsForm = document.querySelector('#quizSettings');
 const quizQuestionDiv = document.querySelector('#questionContainer');
-
 
 quizSettingsForm.addEventListener('submit', async event => {
     event.preventDefault();
@@ -80,7 +81,7 @@ async function getCategoryID() {
         }
 
         const data = await response.json();
-
+        console.log(data);
         return data.trivia_categories;
     }
     catch {
