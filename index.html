@@ -36,13 +36,18 @@
 
     <div id="questionContainer" class="hidden">
         <h3>placeholder question</h3>
-        <label><input type="radio" name="option" value="1" required>one</label>
+
+        <label id="firstOption"><input type="radio" name="option" value="1" required><span>one</span></label>
         <br><br>
-        <label><input type="radio" name="option" value="2">two</label>
+        <label id="secondOption"><input type="radio"  name="option" value="2"><span>two</span></label>
         <br><br>
-        <label><input type="radio" name="option" value="3">three</label>
+        <label id="thirdOption"><input type="radio"  name="option" value="3"><span>three</span></label>
         <br><br>
-        <label><input type="radio" name="option" value="4">four</label>
+        <label id="fourthOption"><input type="radio"  name="option" value="4"><span>four</span></label>
+        <br><br>
+
+        <button id="answer">Answer</button>
+        <button id="next" class="hidden">-Next-</button>
     </div>
 </body>
 </html>
