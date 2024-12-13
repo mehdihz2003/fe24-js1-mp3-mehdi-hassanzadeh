@@ -1,13 +1,14 @@
-let sessionToken;
-getSessionToken()
-    .then(tokenObject => {
-        sessionToken = tokenObject
-    })
+// let sessionToken;
+// getSessionToken()
+//     .then(tokenObject => {
+//         sessionToken = tokenObject
+//     })
     
 let amountOfQuestions = 0;
 let currentQuestionIndex = 0;
 let amountCorrect = 0;
 let listenersAdded = false;
+let triviaQuiz = [{}];
 
 const quizSettingsForm = document.querySelector('#quizSettings');
 const quizQuestionDiv = document.querySelector('#questionContainer');
@@ -27,21 +28,22 @@ quizSettingsForm.addEventListener('submit', async event => {
     const matchingObject = categoryIDs.find(object => object.name === category);
     const matchingID = matchingObject.id;
     
-    const triviaQuiz = await getTriviaQuiz(amountOfQuestions, matchingID, difficulty);
+    triviaQuiz = await getTriviaQuiz(amountOfQuestions, matchingID, difficulty);
     
     quizSettingsForm.classList.add('hidden');
 
-    createQuiz(triviaQuiz);
+    createQuiz();
 })
 
 async function createQuiz(triviaQuiz) {
-    renderQuiz(triviaQuiz, currentQuestionIndex);
+    renderQuiz(currentQuestionIndex);
 
-    if (!listenersAdded) {
+    if(!listenersAdded) {
+
         answerButton.addEventListener('click', () => {
             answerFunc(triviaQuiz);
         });
-
+    
         nextButton.addEventListener('click', () => {
             nextFunc(triviaQuiz);
         });
@@ -52,9 +54,8 @@ async function createQuiz(triviaQuiz) {
     quizQuestionDiv.classList.remove('hidden');
 }
 
-
-function renderQuiz(quiz, index) {
-    const questionData = quiz[index];
+function renderQuiz(index) {
+    const questionData = triviaQuiz[index];
     const answerOptions = shuffleArray([questionData.correct_answer, ...questionData.incorrect_answers]);
 
     quizQuestionDiv.querySelector('h3').innerHTML = questionData.question;
@@ -72,7 +73,7 @@ function renderQuiz(quiz, index) {
     quizQuestionDiv.querySelector('#fourthOption input').value = answerOptions[3];
 }
 
-function answerFunc(triviaQuiz) {
+function answerFunc() {
     const userAnswer = quizQuestionDiv.querySelector('input[name="option"]:checked').value;
     const correctAnswer = triviaQuiz[currentQuestionIndex].correct_answer;
 
@@ -87,7 +88,7 @@ function answerFunc(triviaQuiz) {
         if (input.value === correctAnswer) {
             option.style.color = 'green';
         } 
-        else if (input.value === userAnswer) {
+        else {
             option.style.color = 'red';
         }
     });
@@ -96,7 +97,7 @@ function answerFunc(triviaQuiz) {
     nextButton.classList.remove('hidden');
 }
 
-function nextFunc(triviaQuiz) {
+function nextFunc() {
     const options = quizQuestionDiv.querySelectorAll('label');
     options.forEach(option => {
         option.style.color = '';
@@ -108,7 +109,7 @@ function nextFunc(triviaQuiz) {
     });
 
     if(currentQuestionIndex < triviaQuiz.length) {
-        renderQuiz(triviaQuiz, currentQuestionIndex);
+        renderQuiz(currentQuestionIndex);
     }
     else {
         quizQuestionDiv.classList.add('hidden');
@@ -117,7 +118,7 @@ function nextFunc(triviaQuiz) {
         completedDiv.querySelector('#results').textContent = `You answered ${amountCorrect} questions out of ${amountOfQuestions} correct!`
     
         restartButton.addEventListener('click', () => {
-            restartFunc(triviaQuiz);
+            restartFunc();
         });
     }
     
@@ -125,7 +126,7 @@ function nextFunc(triviaQuiz) {
     nextButton.classList.add('hidden');
 }
 
-function restartFunc(triviaQuiz) {
+function restartFunc() {
     currentQuestionIndex = 0;
     amountCorrect = 0;
     
@@ -153,7 +154,8 @@ async function getSessionToken() {
 }
 
 async function getTriviaQuiz(amount, category, difficulty) {
-    const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple&token=${sessionToken}`;
+    // const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple&token=${sessionToken}`;
+    const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`;
 
     try {
         const response = await fetch(url);
@@ -163,7 +165,7 @@ async function getTriviaQuiz(amount, category, difficulty) {
         }
 
         const data = await response.json();
-
+        console.log(data);
         return data.results;
     }
     catch {
