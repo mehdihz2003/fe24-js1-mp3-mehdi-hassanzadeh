@@ -11,7 +11,7 @@
     <form id="quizSettings" autocomplete="on">
         <label for="HMQ">How many questions do you want to answer?</label>
         <br><br>
-        <input type="number" name="amount" min="3" max="10" required>
+        <input type="number" id = "HMQ" name="amount" placeholder="3" min="3" max="10" required>
         <br><br>
 
         <select name="category" required>
@@ -31,23 +31,29 @@
         <label><input type="radio" name="difficulty" value="hard">Hard</label>
         <br><br>
         
-        <button type="submit">Submit</button>
+        <button type="submit">Start Quiz</button>
     </form>
 
     <div id="questionContainer" class="hidden">
         <h3>placeholder question</h3>
 
-        <label id="firstOption"><input type="radio" name="option" value="1" required><span>one</span></label>
+        <label id="firstOption"><input type="radio" name="option" value="" required><span></span></label>
         <br><br>
-        <label id="secondOption"><input type="radio"  name="option" value="2"><span>two</span></label>
+        <label id="secondOption"><input type="radio"  name="option" value=""><span></span></label>
         <br><br>
-        <label id="thirdOption"><input type="radio"  name="option" value="3"><span>three</span></label>
+        <label id="thirdOption"><input type="radio"  name="option" value=""><span></span></label>
         <br><br>
-        <label id="fourthOption"><input type="radio"  name="option" value="4"><span>four</span></label>
+        <label id="fourthOption"><input type="radio"  name="option" value=""><span></span></label>
         <br><br>
 
         <button id="answer">Answer</button>
         <button id="next" class="hidden">-Next-</button>
+    </div>
+
+    <div id="completedContainer" class="hidden">
+        <h3>You completed the quiz!</h3>
+        <h4 id="results"></h4>
+        <button>Restart</button>
     </div>
 </body>
 </html>
